@@ -89,7 +89,7 @@ function App() {
       !gameOver &&
       !loading &&
       !startQuiz ? (
-        <div>
+        <div className="greeting-box">
           <Box boxShadow="base" p="6" rounded="md" bg="white" maxW="560px">
             <Heading as="h2" size="lg" mb={2}>
               퀴즈 앱

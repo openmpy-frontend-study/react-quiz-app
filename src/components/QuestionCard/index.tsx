@@ -33,7 +33,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         </Heading>
 
         <Flex direction="column">
-          <Box w="100%" mt={4}>
+          <Box w="100%" mt={4} mb={4}>
             <AppButton
               colorScheme="purple"
               variant="outline"
@@ -43,7 +43,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
             />
           </Box>
           <Spacer />
-          <Box>
+          <Box w="100%" mb={4}>
             <AppButton
               colorScheme="purple"
               variant="outline"
