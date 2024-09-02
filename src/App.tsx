@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import AppButton from "./components/AppButton";
 import QuestionCard from "./components/QuestionCard";
@@ -30,10 +30,46 @@ function App() {
     fetchQuestions();
   }, []);
 
-  const startQuizGame = () => {};
-  const checkAnswer = () => {};
-  const nextQuestion = () => {};
-  const replayQuiz = () => {};
+  const startQuizGame = (): void => {
+    setStartQuiz(true);
+  };
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    if (gameOver) return;
+
+    const chosenAnswer = e.currentTarget.innerText;
+    const correct = questions[questionNumber]?.correct_answer === chosenAnswer;
+
+    if (correct) {
+      setScore((prev) => prev + 1);
+    }
+
+    const answerObject = {
+      question: questions[questionNumber]?.question,
+      answer: chosenAnswer,
+      correct,
+      correctAnswer: questions[questionNumber]?.correct_answer,
+    };
+
+    setUserAnswer((prev) => [...prev, answerObject]);
+  };
+
+  const nextQuestion = (): void => {
+    const nextQuestion = questionNumber + 1;
+    if (totalQuestions === nextQuestion) {
+      setGameOver(true);
+    }
+    setQuestionNumber(nextQuestion);
+  };
+
+  const replayQuiz = () => {
+    setStartQuiz(false);
+    setGameOver(false);
+    setQuestionNumber(0);
+    setScore(0);
+    setUserAnswer([]);
+  };
 
   return (
     <main>
