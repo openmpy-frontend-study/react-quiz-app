@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import { Difficulty, totalQuestions } from "./constants";
+import { getQuestionList } from "./services/fetchQuestions";
+import { IQuestion, IUserAnswer } from "./type";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [start, setStartQuiz] = useState(false);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [userAnswer, setUserAnswer] = useState<IUserAnswer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      const questionListing = await getQuestionList(
+        totalQuestions,
+        Difficulty.EASY
+      );
+      setQuestions(questionListing);
+      setLoading(false);
+    };
+
+    fetchQuestions();
+  }, []);
+
+  return <div className="App"></div>;
 }
 
-export default App
+export default App;
