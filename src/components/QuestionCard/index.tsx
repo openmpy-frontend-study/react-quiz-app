@@ -3,7 +3,7 @@ import React from "react";
 import AppButton from "../AppButton";
 
 interface QuestionCardProps {
-  question: string;
+  questions: string;
   category: string;
   totalQuestions?: number;
   questionNumber?: number;
@@ -11,7 +11,7 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
-  question,
+  questions,
   checkAnswer,
   category,
   totalQuestions,
@@ -29,7 +29,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         </Box>
 
         <Heading as="h1" size="lg">
-          <p dangerouslySetInnerHTML={{ __html: question }}></p>
+          <p dangerouslySetInnerHTML={{ __html: questions }}></p>
         </Heading>
 
         <Flex direction="column">
